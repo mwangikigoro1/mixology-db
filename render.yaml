@@ -1,0 +1,32 @@
+services:
+  # ── Backend API (Node/Express) ────────────────────────────────────────────
+  - type: web
+    name: mixology-db-api
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        sync: false          # set this manually in the Render dashboard
+      - key: JWT_SECRET
+        generateValue: true  # Render auto-generates a secure random value
+      - key: PORT
+        value: "10000"       # Render sets PORT automatically; this is a fallback
+    healthCheckPath: /api/cocktails?limit=1
+
+  # ── Frontend (Vite static site) ───────────────────────────────────────────
+  - type: web
+    name: mixology-db-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://mixology-db-api.onrender.com/api
+    routes:
+      # SPA fallback — all paths return index.html so React Router works
+      - type: rewrite
+        source: /*
+        destination: /index.html
