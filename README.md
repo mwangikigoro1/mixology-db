@@ -1,5 +1,7 @@
 # 🍹 Mixology DB
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/mwangikigoro1/mixology-db)
+
 A full-stack cocktail recipe app with a focus on Kenyan & international drinks.  
 Built with **React + Vite** (frontend) and **Node/Express + MongoDB** (backend).
 
